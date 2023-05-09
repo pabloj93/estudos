@@ -26,7 +26,7 @@ class Conta:
             return True
     #método gerar extrato, apresenta o saldo da conta
     def gerarSaldo(self):
-        print(f"numero: {self.numero}\ncpf:{self.cpf}\nsaldo:{self.saldo}")
+        print(f"numero: {self.numero}\ncpf:{self.cpf}\nsaldo:{self.saldo}\n")
     #método de transferencia de saldo
     def transfereValor(self, contaDestino, valor):
         if self.saldo<valor:
