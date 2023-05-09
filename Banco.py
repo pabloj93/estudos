@@ -52,7 +52,7 @@ class Banco:
             IOF = eval(input("Digite a taxa de IOF que será aplicada:\n"))
             IR = 0
             taxarendimento = eval(input("Digite a taxa de rendimento que será aplicada:\n"))
-            conta = PoupancaComum(numero, cpf, nomeTitular, saldo, clientes, IOF, IR, taxarendimento)
+            conta = PoupancaRemunerada(numero, cpf, nomeTitular, saldo, clientes, IOF, IR, taxarendimento)
             self.contas.append(conta)
             print(f"Conta poupança remunerada número {numero} criada\n")
 
