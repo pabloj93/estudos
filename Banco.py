@@ -81,12 +81,29 @@ class Banco:
                 self.saldo()
 
         self.menu()
+
+    def sacar(self):
+        numero = eval(input("Digite o número da conta em que irá sacar:\n"))
+        for conta in self.contas:
+            if numero == conta.numero:
+                valor = eval(input("Digite o valor a ser sacado:\n"))
+                if conta.sacar(valor) == False:
+                    print("Saldo Insuficiente ou Limite Ultrapassado")
+                else:
+                    conta.sacar(valor)
+                    print(f"Você sacou {valor} da conta {numero}\n")
+            else:
+                print("Conta não existe\n")
+                self.sacar()
+
+        self.menu()
     def menu(self):
         while True:
             menu = eval(input("O que gostaria de fazer:\n"
                               "1 - Adicionar Conta\n"
                               "2 - Depositar\n"
                               "3 - Saldo Simples\n"
+                              "4 - Sacar\n"
                               "99 - Fechar Banco\n"))
             if menu == 1:
                 self.adicionaconta()
@@ -94,6 +111,8 @@ class Banco:
                 self.depositar()
             elif menu == 3:
                 self.saldo()
+            elif menu == 4:
+                self.sacar()
             else:
                 break
 
