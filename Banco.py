@@ -65,6 +65,7 @@ class Banco:
                 valor = eval(input("Digite o valor a ser depositado:\n"))
                 conta.depositar(valor)
                 print(f"Você depositou {valor} na conta {numero}\n")
+                break
             else:
                 print("Conta não existe\n")
                 self.depositar()
@@ -76,6 +77,7 @@ class Banco:
         for conta in self.contas:
             if numero == conta.numero:
                 conta.gerarSaldo()
+                break
             else:
                 print("Conta não existe\n")
                 self.saldo()
@@ -92,11 +94,50 @@ class Banco:
                 else:
                     conta.sacar(valor)
                     print(f"Você sacou {valor} da conta {numero}\n")
+                    break
             else:
                 print("Conta não existe\n")
                 self.sacar()
 
         self.menu()
+
+    def transferencia(self):
+        numero1 = eval(input("Digite o número da conta que irá transferir:\n"))
+        numero2 = eval(input("Digite o número da conta que irá receber a transferência:\n"))
+
+        print("Verificando contas:")
+        for conta in self.contas:
+            if numero1 == conta.numero:
+                print(f"Conta {numero1} existe!")
+            elif numero2 == conta.numero:
+                print(f"Conta {numero2} existe!")
+            else:
+                print("Contas não existem\n")
+                self.transferencia()
+
+
+        for conta1 in self.contas:
+            if numero1 == conta1.numero:
+                valor = eval(input("Digite o valor a ser transferido:\n"))
+                for conta2 in self.contas:
+                    if conta1.transfereValor(conta2, valor) == False:
+                        print("Saldo Insuficiente ou Limite Ultrapassado")
+                    else:
+                        conta1.transfereValor(conta2, valor)
+                        break
+                print(f"Você transferiu {valor} da conta {numero1} para conta {numero2}\n")
+        self.menu()
+
+    def info(self):
+        print(f"Banco {self.nome}\n"
+              f"Codigo do banco: {self.codigo}\n"
+              f"Possuímos as contas:\n")
+        for conta in self.contas:
+            print(f'{conta.numero}\n')
+        print(f"Um total de {len(self.contas)} contas\n")
+
+        self.menu()
+
     def menu(self):
         while True:
             menu = eval(input("O que gostaria de fazer:\n"
@@ -104,6 +145,8 @@ class Banco:
                               "2 - Depositar\n"
                               "3 - Saldo Simples\n"
                               "4 - Sacar\n"
+                              "5 - Transferência\n"
+                              "80 - Informações sobre o Banco\n"
                               "99 - Fechar Banco\n"))
             if menu == 1:
                 self.adicionaconta()
@@ -113,6 +156,10 @@ class Banco:
                 self.saldo()
             elif menu == 4:
                 self.sacar()
+            elif menu == 5:
+                self.transferencia()
+            elif menu == 80:
+                self.info()
             else:
                 break
 

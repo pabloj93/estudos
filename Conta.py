@@ -29,10 +29,10 @@ class Conta:
         print(f"numero: {self.numero}\ncpf:{self.cpf}\nsaldo:{self.saldo}\n")
     #método de transferencia de saldo
     def transfereValor(self, contaDestino, valor):
-        if self.saldo<valor:
-            return("Não existe saldo suficiente")
+        if self.saldo < valor:
+            return False
         else:
             contaDestino.depositar(valor)
             self.saldo -= valor
             self.extrato.transacoes.append(["TRANSFERENCIA", valor, "SALDO", self.saldo, "Data", datetime.datetime.today()])
-            return("Transferência realizada")
+            return True
