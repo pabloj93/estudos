@@ -60,12 +60,16 @@ class Banco:
 
     def depositar(self):
         numero = eval(input("Digite o número da conta em que irá depositar:\n"))
+        cont = 0
         for conta in self.contas:
             if numero == conta.numero:
                 valor = eval(input("Digite o valor a ser depositado:\n"))
                 conta.depositar(valor)
                 print(f"Você depositou {valor} na conta {numero}\n")
                 break
+            elif cont <= len(self.contas):
+                cont += 1
+                continue
             else:
                 print("Conta não existe\n")
                 self.depositar()
@@ -74,10 +78,14 @@ class Banco:
 
     def saldo(self):
         numero = eval(input("Digite o número da conta que gostaria de ver o saldo:\n"))
+        cont = 0
         for conta in self.contas:
             if numero == conta.numero:
                 conta.gerarSaldo()
                 break
+            elif cont <= len(self.contas):
+                cont += 1
+                continue
             else:
                 print("Conta não existe\n")
                 self.saldo()
@@ -86,6 +94,7 @@ class Banco:
 
     def sacar(self):
         numero = eval(input("Digite o número da conta em que irá sacar:\n"))
+        cont = 0
         for conta in self.contas:
             if numero == conta.numero:
                 valor = eval(input("Digite o valor a ser sacado:\n"))
@@ -95,6 +104,9 @@ class Banco:
                     conta.sacar(valor)
                     print(f"Você sacou {valor} da conta {numero}\n")
                     break
+            elif cont <= len(self.contas):
+                cont += 1
+                continue
             else:
                 print("Conta não existe\n")
                 self.sacar()
