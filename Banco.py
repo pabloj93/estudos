@@ -150,6 +150,23 @@ class Banco:
 
         self.menu()
 
+    def extrato(self):
+        numero = eval(input("Digite o número da conta que gostaria de ver o extrato:\n"))
+        cont = 0
+        for conta in self.contas:
+            if numero == conta.numero:
+                conta.extrato.extratocompleto(conta.numero)
+                break
+            elif cont <= len(self.contas):
+                cont += 1
+                continue
+            else:
+                print("Conta não existe\n")
+                self.extrato()
+
+        self.menu()
+
+
     def menu(self):
         while True:
             menu = eval(input("O que gostaria de fazer:\n"
@@ -158,6 +175,7 @@ class Banco:
                               "3 - Saldo Simples\n"
                               "4 - Sacar\n"
                               "5 - Transferência\n"
+                              "6 - Extrato Completo\n"
                               "80 - Informações sobre o Banco\n"
                               "99 - Fechar Banco\n"))
             if menu == 1:
@@ -170,6 +188,8 @@ class Banco:
                 self.sacar()
             elif menu == 5:
                 self.transferencia()
+            elif menu == 6:
+                self.extrato()
             elif menu == 80:
                 self.info()
             else:
