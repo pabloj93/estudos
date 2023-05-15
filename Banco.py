@@ -6,6 +6,7 @@ from ContaEspecial import ContaEspecial
 from ContaPoupanca import ContaPoupanca
 from PoupancaComum import PoupancaComum
 from PoupancaRemunerada import PoupancaRemunerada
+import sys
 
 class Banco:
     def __init__(self, codigo, nome):
@@ -166,6 +167,27 @@ class Banco:
 
         self.menu()
 
+    def rendimento(self):
+        numero = eval(input("Digite o número da conta que gostaria de ver o rendimento:\n"))
+        cont = 0
+        for conta in self.contas:
+            if numero == conta.numero:
+                try:
+                    conta.CalculoRendimento()
+                    conta.extrato.extratocompleto(conta.numero)
+                    break
+                except:
+                    print("Unexpected error:", sys.exc_info()[0])
+                    print("Conta não é poupança!")
+                    self.rendimento()
+            elif cont <= len(self.contas):
+                cont += 1
+                continue
+            else:
+                print("Conta não existe\n")
+                self.rendimento()
+
+        self.menu()
 
     def menu(self):
         while True:
@@ -176,6 +198,7 @@ class Banco:
                               "4 - Sacar\n"
                               "5 - Transferência\n"
                               "6 - Extrato Completo\n"
+                              "7 - Calcular rendimento\n"
                               "80 - Informações sobre o Banco\n"
                               "99 - Fechar Banco\n"))
             if menu == 1:
@@ -190,6 +213,8 @@ class Banco:
                 self.transferencia()
             elif menu == 6:
                 self.extrato()
+            elif menu == 7:
+                self.rendimento()
             elif menu == 80:
                 self.info()
             else:
